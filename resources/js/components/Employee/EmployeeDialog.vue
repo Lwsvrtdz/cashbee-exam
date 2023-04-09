@@ -3,7 +3,6 @@
     :title="dialogTitle"
     :visible.sync="dialogVisible"
     :close-on-click-modal="false"
-    :before-close="handleClose"
   >
     <el-form
       ref="employeeForm"
@@ -53,6 +52,15 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 
+const validatePhilippinePhoneNumber = (rule, value, callback) => {
+  const regex = /^(09|\+639)\d{9}$/; // Philippine mobile number regex pattern
+  if (value && !regex.test(value)) {
+    callback(new Error("Please enter a valid Philippine phone number"));
+  } else {
+    callback();
+  }
+};
+
 export default {
   data() {
     return {
@@ -74,6 +82,8 @@ export default {
             message: "Phone number must be at least 10 characters long",
             trigger: "blur",
           },
+
+          { validator: validatePhilippinePhoneNumber, trigger: "blur" },
         ],
         company_id: [
           {
@@ -113,16 +123,6 @@ export default {
       } else {
         this.form = this.generateDefaultEmployeeForm();
       }
-    },
-
-    handleClose(done) {
-      this.$refs.employeeForm.validate((valid) => {
-        if (valid) {
-          done();
-        } else {
-          return false;
-        }
-      });
     },
 
     submitForm() {

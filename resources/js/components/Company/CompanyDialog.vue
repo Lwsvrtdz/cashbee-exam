@@ -3,7 +3,6 @@
     :title="dialogTitle"
     :visible.sync="dialogVisible"
     :close-on-click-modal="false"
-    :before-close="handleClose"
   >
     <el-form ref="companyForm" :model="form" :rules="rules" label-width="120px">
       <el-form-item label="Name" prop="name">
@@ -65,16 +64,6 @@ export default {
           description: "",
         };
       }
-    },
-
-    handleClose(done) {
-      this.$refs.companyForm.validate((valid) => {
-        if (valid) {
-          done();
-        } else {
-          return false;
-        }
-      });
     },
 
     submitForm() {

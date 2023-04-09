@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Contracts\CompanyContract;
 use App\Models\Company;
+use App\Models\User;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class CompanyRepository implements CompanyContract
@@ -31,6 +32,16 @@ class CompanyRepository implements CompanyContract
     public function save(array $payload): Company
     {
         $company = $this->company->create($payload);
+
+        /**
+         * User belongs to Company
+         */
+        if (auth()->check()) {
+            $user = User::find(auth()->user()->id);
+            $user->company_id = $company->id;
+
+            $user->save();
+        }
 
         return $company;
     }

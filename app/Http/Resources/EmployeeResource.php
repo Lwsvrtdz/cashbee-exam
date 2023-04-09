@@ -20,8 +20,8 @@ class EmployeeResource extends JsonResource
             'phone_number' => $this->phone_number,
             'company_id' => $this->company_id,
             'department_id' => $this->department_id,
-            'company' => $this->company->name,
-            'department' => $this->department->name,
+            'company' => optional($this->company)->name,
+            'department' => optional($this->department)->name,
             'created_at' => $this->created_at->toIso8601String(),
             'updated_at' => $this->updated_at->toIso8601String(),
         ];

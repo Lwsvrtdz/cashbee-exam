@@ -34,7 +34,7 @@
           >
             Edit
           </el-button>
-          <el-button type="text" @click="deleteDepartment(scope.row.id)">
+          <el-button type="text" @click="delete scope.row.id">
             Delete
           </el-button>
         </template>
@@ -75,6 +75,24 @@ export default {
       "updateDepartment",
       "deleteDepartment",
     ]),
+
+    delete(id) {
+      this.$confirm(
+        "Are you sure you want to delete this item?",
+        "Delete Confirmation",
+        {
+          confirmButtonText: "Yes",
+          cancelButtonText: "No",
+          type: "warning",
+        }
+      )
+        .then(() => {
+          this.deleteDepartment(id);
+        })
+        .catch(() => {
+          // do nothing if user cancels
+        });
+    },
 
     openDialog(title, department) {
       this.$refs.departmentDialog.openDialog(title, department);

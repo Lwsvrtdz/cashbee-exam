@@ -15,7 +15,12 @@ class EmployeeRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'phone_number' => ['nullable', 'string', 'max:255'],
+            'phone_number' => [
+                'nullable',
+                'string',
+                'max:255',
+                'regex:/^(09|\+639)\d{9}$/'
+            ],
             'department_id' => ['required', 'integer', 'exists:departments,id'],
             'company_id' => ['required', 'integer', 'exists:companies,id'],
         ];

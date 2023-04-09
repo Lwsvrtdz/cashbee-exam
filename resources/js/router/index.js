@@ -44,7 +44,7 @@ const routes = [
     },
 ]
 
-export default new VueRouter({
+const router = new VueRouter({
     linkActiveClass: 'active',
     linkExactActiveClass: '',
     scrollBehavior() {
@@ -56,3 +56,39 @@ export default new VueRouter({
         default: App
     }
 })
+
+router.beforeEach((to, from, next) => {
+    /**
+   * If directly trying to access the login route.
+   * Check if the User is Unauthenticated.
+   * If yes, navigate to login
+   */
+    if (to.name == 'login' && !localStorage.getItem('token')) {
+        console.log('1')
+        next()
+        return
+    }
+
+    /**
+     * If the user tries to access page that requires an authentication
+     * but doesn't have token and auth.
+     * Redirect to Login page
+     */
+    if (to.matched.some(record => record.meta.requiresAuth) && !localStorage.getItem('token')) {
+        console.log('2')
+        next({ name: "login" });
+
+        return
+    }
+
+    /**
+     */
+    if (to.matched.some(record => record.meta.requiresAuth) && localStorage.getItem('token')) {
+        console.log('3')
+        next()
+
+        return
+    }
+})
+
+export default router

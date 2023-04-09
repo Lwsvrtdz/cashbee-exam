@@ -4,6 +4,16 @@
       <h4 class="mb-0">SMS Form</h4>
     </el-card>
 
+    <div class="d-flex mb-3">
+      <div></div>
+
+      <div class="ml-auto">
+        <el-button type="primary" @click="validateForm">
+          <i class="fas fa-plus"></i> Send Message
+        </el-button>
+      </div>
+    </div>
+
     <el-form ref="smsForm" :model="form" :rules="rules" label-width="120px">
       <el-form-item label="Message" prop="message">
         <el-input v-model="form.message" type="textarea" rows="4"></el-input>
@@ -70,6 +80,13 @@ export default {
       },
 
       rules: {
+        message: [
+          {
+            required: true,
+            message: "Please input Message",
+            trigger: "change",
+          },
+        ],
         company_id: [
           {
             required: true,
@@ -113,6 +130,13 @@ export default {
       } else {
         this.form.employees = [];
       }
+    },
+
+    validateForm() {
+      this.$refs.smsForm.validate((valid) => {
+        if (valid) {
+        }
+      });
     },
   },
 

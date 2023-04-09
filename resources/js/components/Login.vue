@@ -54,14 +54,18 @@ export default {
   mounted() {},
 
   methods: {
-    ...mapActions("auth", ["login"]),
+    ...mapActions("Auth", ["login"]),
 
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.login(this.form).then((response) => {
-            localStorage.setItem("token", response.data);
+            localStorage.setItem("token", response.data.access_token);
           });
+
+          setTimeout((_) => {
+            window.location.href = "/sms";
+          }, 2000);
         } else {
           return false;
         }

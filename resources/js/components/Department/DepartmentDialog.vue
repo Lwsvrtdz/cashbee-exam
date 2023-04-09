@@ -3,7 +3,6 @@
     :title="dialogTitle"
     :visible.sync="dialogVisible"
     :close-on-click-modal="false"
-    :before-close="handleClose"
   >
     <el-form
       ref="departmentForm"
@@ -59,6 +58,14 @@ export default {
             trigger: "blur",
           },
         ],
+
+        company_id: [
+          {
+            required: true,
+            message: "Please select a company",
+            trigger: "change",
+          },
+        ],
       },
     };
   },
@@ -91,16 +98,6 @@ export default {
           description: "",
         };
       }
-    },
-
-    handleClose(done) {
-      this.$refs.departmentForm.validate((valid) => {
-        if (valid) {
-          done();
-        } else {
-          return false;
-        }
-      });
     },
 
     submitForm() {

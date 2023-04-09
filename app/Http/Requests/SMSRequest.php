@@ -17,7 +17,7 @@ class SMSRequest extends FormRequest
             'message' => ['required', 'string'],
             'department_id' => ['sometimes', 'string'],
             'company_id' => ['required', 'string'],
-            'employees' => ['sometimes', 'array']
+            'employees' => ['required', 'array']
         ];
     }
 }
