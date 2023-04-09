@@ -15,8 +15,8 @@ class SMSRequest extends FormRequest
     {
         return [
             'message' => ['required', 'string'],
-            'department_id' => ['sometimes', 'string'],
-            'company_id' => ['required', 'string'],
+            'department_id' => ['sometimes', 'integer', 'exists:departments,id'],
+            'company_id' => ['sometimes', 'integer', 'exists:companies,id'],
             'employees' => ['required', 'array']
         ];
     }

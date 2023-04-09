@@ -121,6 +121,7 @@ export default {
     ...mapActions("Employee", ["fetchEmployees"]),
     ...mapActions("Company", ["fetchCompanies"]),
     ...mapActions("Department", ["fetchDepartments"]),
+    ...mapActions("Sms", ["send"]),
 
     selectAllEmployees() {
       if (this.form.selectAllEmployees) {
@@ -135,6 +136,7 @@ export default {
     validateForm() {
       this.$refs.smsForm.validate((valid) => {
         if (valid) {
+          this.send(this.form).then((response) => {});
         }
       });
     },
@@ -148,7 +150,6 @@ export default {
             size: 500,
             company_id: this.form.company_id,
           });
-          console.log("tepi");
           this.fetchEmployees({
             size: 500,
             company_id: this.form.company_id,

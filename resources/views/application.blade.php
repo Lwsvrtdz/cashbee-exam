@@ -8,7 +8,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- <link rel="icon" href="<%= BASE_URL %>favicon.ico"> -->
 
-  <title>StylebyGlobal - Portal</title>
+  <title>SMS</title>
 
   <!-- Splash Screen/Loader Styles -->
   <link href="{{ asset('css/app.css') }}" rel="stylesheet" />

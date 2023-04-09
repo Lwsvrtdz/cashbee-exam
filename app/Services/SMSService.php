@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Jobs\SMSJob;
 use App\Models\Company;
 use App\Models\Employee;
+use Illuminate\Support\Facades\Log;
 
 class SMSService
 {
@@ -18,11 +19,12 @@ class SMSService
     {
         // We are requiring this upon Request
         // no need to sanity check it.
-        $receivers = Employee::whereIn('id', $payload['employees']);
+        $receivers = Employee::whereIn('id', $payload['employees'])
+            ->get();
 
         //Loop thru all selected Employees
         foreach ($receivers as $receiver) {
-            SMSJob::dispatch($payload['message'], $receiver->employee_id, $receiver->phone_number);
+            SMSJob::dispatch($payload['message'], $receiver->id, $receiver->phone_number);
         }
     }
 }
