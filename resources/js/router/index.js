@@ -64,7 +64,6 @@ router.beforeEach((to, from, next) => {
    * If yes, navigate to login
    */
     if (to.name == 'login' && !localStorage.getItem('token')) {
-        console.log('1')
         next()
         return
     }
@@ -75,7 +74,6 @@ router.beforeEach((to, from, next) => {
      * Redirect to Login page
      */
     if (to.matched.some(record => record.meta.requiresAuth) && !localStorage.getItem('token')) {
-        console.log('2')
         next({ name: "login" });
 
         return
@@ -84,7 +82,6 @@ router.beforeEach((to, from, next) => {
     /**
      */
     if (to.matched.some(record => record.meta.requiresAuth) && localStorage.getItem('token')) {
-        console.log('3')
         next()
 
         return
